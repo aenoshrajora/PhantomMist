@@ -1,0 +1,34 @@
+name: ArchLinuxBuild
+
+on:
+  push:
+    branches: [ main ]
+    paths: 
+    - 'src/**'
+
+    
+jobs:
+  build-arch:
+    runs-on: ubuntu-latest
+    container: 
+      image: archlinux
+
+    steps:
+      - name: update docker
+        run: pacman -Syu --noconfirm
+      
+      - name: install dependancies 
+        run: pacman -S base-devel gcc make cmake openssl crystal shards --noconfirm
+      
+      - uses: actions/checkout@v2
+
+      - name: Install shard dependencies
+        run: shards install
+        env:
+          SHARDS_OPTS: --ignore-crystal-version
+
+      - name: Build phantommist
+        run: crystal build src/phantommist.cr -p --release
+
+      - name: Build pmdb
+        run: crystal build src/pmdb.cr -p --release

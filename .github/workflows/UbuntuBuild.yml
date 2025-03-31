@@ -1,0 +1,29 @@
+name: UbuntuLinuxBuild
+
+on:
+  push:
+    branches: [ main ]
+    paths: 
+      - 'src/**'
+      
+jobs:
+  build-debian-based:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: crystal-lang/install-crystal@v1
+        with:
+          crystal: latest
+
+      - uses: actions/checkout@v2
+
+      - name: Install shard dependencies
+        run: shards install
+        env:
+          SHARDS_OPTS: --ignore-crystal-version
+
+      - name: Build phantommist
+        run: crystal build src/phantommist.cr --release -p 
+
+      - name: Bulid PMDB
+        run: crystal build src/pmdb.cr --release -p 

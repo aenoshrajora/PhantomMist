@@ -1,0 +1,45 @@
+name: KaliLinuxBuild
+
+on:
+  push:
+    branches: [ main ]
+    paths: 
+      - 'src/**'
+      
+jobs:
+  build-kali:
+    runs-on: ubuntu-latest
+    container: 
+      image: kalilinux/kali-rolling
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install kali dependancies and build tools
+        run: apt update -y && apt upgrade -y && apt install gcc make cmake curl git sqlite3 libsqlite3-dev build-essential openssl zlib1g zlib1g-dev libssl-dev -y
+
+
+        # for some reason new kali has issues with the install.sh script and the git action too. run both and it seems to work though 
+      - name: Install Crystal and Shards using public installer
+        run: curl -fsSL https://crystal-lang.org/install.sh | bash
+
+      - uses: crystal-lang/install-crystal@v1
+        with:
+          crystal: latest
+
+      - name: Install shard dependencies
+        run: shards install
+        env:
+          SHARDS_OPTS: --ignore-crystal-version
+
+      - name: Install shard dependencies
+        run: shards install
+        env:
+          SHARDS_OPTS: --ignore-crystal-version
+
+      - name: Build phantommist
+        run: crystal build src/phantommist.cr -p --release
+
+      - name: Bulid pmdb
+        run: crystal build src/pmdb.cr -p --release
+

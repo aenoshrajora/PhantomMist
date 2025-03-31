@@ -1,0 +1,22 @@
+name: PhantomMist
+version: 1.0.6
+
+authors:
+  - CausticKirbyZ (Mike Hedlund)
+
+description: |
+  PhantomMist is a CLI tool for password spraying. Featuring Lockout/MFA detection, Webhooks, jitter, delays, and more.  
+
+license: GPL3
+dependencies:
+  sqlite3:
+    github: crystal-lang/crystal-sqlite3
+  crystagiri:
+    github: madeindjs/crystagiri
+  lexbor:
+    github: kostya/lexbor
+  cryprompt:
+    github: CausticKirbyZ/cryprompt
+    branch: master
+  tallboy:
+    github: epoch/tallboy

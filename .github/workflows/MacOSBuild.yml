@@ -1,0 +1,29 @@
+name: MacOSBuild
+
+on:
+  push:
+    branches: [ main ]
+    paths: 
+      - 'src/**'
+      
+jobs:
+  build-macos-based:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: crystal-lang/install-crystal@v1
+        with:
+          crystal: latest
+
+      - uses: actions/checkout@v2
+
+      - name: Install shard dependencies
+        run: shards install
+        env:
+          SHARDS_OPTS: --ignore-crystal-version
+
+      - name: Build SparyCannon
+        run: crystal build src/phantommist.cr -p --release
+
+      - name: Bulid pmdb
+        run: crystal build src/pmdb.cr -p --release

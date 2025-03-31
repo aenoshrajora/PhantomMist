@@ -1,0 +1,293 @@
+name: Release
+
+on:
+  release: 
+    types: 
+      - created
+  workflow_dispatch:
+
+
+jobs:
+  build-arch:
+    runs-on: ubuntu-latest
+    container: 
+      image: archlinux
+
+    steps:
+      - name: update docker
+        run: pacman -Syu --noconfirm
+      
+      - name: install dependancies 
+        run: pacman -S base-devel gcc make cmake openssl crystal shards --noconfirm
+      
+      - uses: actions/checkout@v2
+
+      - name: Install shard dependencies
+        run: shards install
+        env:
+          SHARDS_OPTS: --ignore-crystal-version
+
+      - name: Build phantommist
+        run: crystal build src/phantommist.cr -p --release
+
+      - name: Bulid pmdb
+        run: crystal build src/pmdb.cr -p  --release
+
+      - name: Upload phantommist release asset - arch 
+        uses: actions/upload-release-asset@v1
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./phantommist
+          asset_name: phantommist-arch-linux-x64
+          asset_content_type: binary/octet-stream
+
+      - name: Upload pmdb release asset - arch 
+        uses: actions/upload-release-asset@v1
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./pmdb
+          asset_name: pmdb-arch-linux-x64
+          asset_content_type: binary/octet-stream
+
+  build-kali:
+    runs-on: ubuntu-latest
+    container: 
+      image: kalilinux/kali-rolling
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install kali dependancies and build tools
+        run: apt update -y && apt upgrade -y && apt install gcc make cmake curl git sqlite3 libsqlite3-dev build-essential openssl zlib1g zlib1g-dev libssl-dev -y
+
+
+        # for some reason new kali has issues with the install.sh script and the git action too. run both and it seems to work though 
+      - name: Install Crystal and Shards using public installer
+        run: curl -fsSL https://crystal-lang.org/install.sh | bash
+
+      - uses: crystal-lang/install-crystal@v1
+        with:
+          crystal: latest
+
+      - name: Install shard dependencies
+        run: shards install
+        env:
+          SHARDS_OPTS: --ignore-crystal-version
+
+      - name: Install shard dependencies
+        run: shards install
+        env:
+          SHARDS_OPTS: --ignore-crystal-version
+
+      - name: Build phantommist
+        run: crystal build src/phantommist.cr -p --release
+
+      - name: Bulid pmdb
+        run: crystal build src/pmdb.cr -p --release
+
+      - name: Upload phantommist release asset - kali
+        uses: actions/upload-release-asset@v1
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./phantommist
+          asset_name: phantommist-kali-linux-x64
+          asset_content_type: binary/octet-stream
+
+      - name: Upload pmdb release asset - kali
+        uses: actions/upload-release-asset@v1
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./pmdb
+          asset_name: pmdb-kali-linux-x64
+          asset_content_type: binary/octet-stream
+
+
+
+  build-debian:
+    runs-on: ubuntu-latest
+    container: 
+      image: debian
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: install curl.... why.... why is this not default in kalis docker
+        run: apt update -y && apt install gcc make cmake curl git  sqlite3 libsqlite3-dev build-essential openssl -y
+
+      - name: Install Crystal and Shards using public installer
+        run: curl -fsSL https://crystal-lang.org/install.sh | bash
+
+      - name: Install shard dependencies
+        run: shards install
+        env:
+          SHARDS_OPTS: --ignore-crystal-version
+
+      - name: Install shard dependencies
+        run: shards install
+        env:
+          SHARDS_OPTS: --ignore-crystal-version
+
+      - name: Build Project
+        run: crystal build src/phantommist.cr --release
+
+      - name: Bulid Project 2
+        run: crystal build src/pmdb.cr --release
+
+      - name: Upload phantommist release asset - debain
+        uses: actions/upload-release-asset@v1
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./phantommist
+          asset_name: phantommist-debian-linux-x64
+          asset_content_type: binary/octet-stream
+
+      - name: Upload pmdb release asset - debain
+        uses: actions/upload-release-asset@v1
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./pmdb
+          asset_name: pmdb-debian-linux-x64
+          asset_content_type: binary/octet-stream
+
+  build-ubuntu-based:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: crystal-lang/install-crystal@v1
+        with:
+          crystal: latest
+
+      - uses: actions/checkout@v2
+
+      - name: Install shard dependencies
+        run: shards install
+        env:
+          SHARDS_OPTS: --ignore-crystal-version
+
+      - name: Build Project
+        run: crystal build src/phantommist.cr --release
+
+      - name: Bulid Project 2
+        run: crystal build src/pmdb.cr --release
+
+      - name: Upload release asset - ubuntu
+        uses: actions/upload-release-asset@v1
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # upload_url: ${{ steps.release.outputs.upload_url }}
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./phantommist
+          asset_name: phantommist-ubuntu-linux-x64
+          asset_content_type: binary/octet-stream
+
+      - name: Upload release asset - ubuntu
+        uses: actions/upload-release-asset@v1
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # upload_url: ${{ steps.release.outputs.upload_url }}
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./pmdb
+          asset_name: pmdb-ubuntu-linux-x64
+          asset_content_type: binary/octet-stream
+
+  build-macos-based:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: crystal-lang/install-crystal@v1
+        with:
+          crystal: latest
+
+      - uses: actions/checkout@v2
+
+      - name: Install shard dependencies
+        run: shards install
+        env:
+          SHARDS_OPTS: --ignore-crystal-version
+
+      - name: Build Project
+        run: crystal build src/phantommist.cr --release
+
+      - name: Bulid Project 2
+        run: crystal build src/pmdb.cr --release
+
+      - name: Upload release asset - macos
+        uses: actions/upload-release-asset@v1
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./phantommist
+          asset_name: phantommist-macos-x64
+          asset_content_type: binary/octet-stream
+
+      - name: Upload release asset - macos
+        uses: actions/upload-release-asset@v1
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./pmdb
+          asset_name: pmdb-macos-x64
+          asset_content_type: binary/octet-stream
+
+  build-static:
+    runs-on: ubuntu-latest
+    container: 
+      image: crystallang/crystal:latest-alpine
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: install dependancies for alpine 
+        run: apk update && apk add bash gcc make cmake git sqlite sqlite-static sqlite-dev build-base
+
+      - name: Install shard dependencies
+        run: shards install
+        env:
+          SHARDS_OPTS: --ignore-crystal-version
+
+      - name: Install shard dependencies
+        run: shards install
+        env:
+          SHARDS_OPTS: --ignore-crystal-version
+
+      - name: Build Project
+        run: crystal build src/phantommist.cr --release --progress --static 
+
+      - name: Bulid Project 2
+        run: crystal build src/pmdb.cr --release --progress --static
+
+      - name: Upload phantommist release asset - static
+        uses: actions/upload-release-asset@v1
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./phantommist
+          asset_name: phantommist-static-linux-x64
+          asset_content_type: binary/octet-stream
+
+      - name: Upload pmdb release asset - static
+        uses: actions/upload-release-asset@v1
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./pmdb
+          asset_name: pmdb-static-linux-x64
+          asset_content_type: binary/octet-stream

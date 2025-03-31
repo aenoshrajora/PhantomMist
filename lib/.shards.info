@@ -1,0 +1,21 @@
+---
+version: 1.0
+shards:
+  db:
+    git: https://github.com/crystal-lang/crystal-db.git
+    version: 0.13.1
+  sqlite3:
+    git: https://github.com/crystal-lang/crystal-sqlite3.git
+    version: 0.21.0
+  crystagiri:
+    git: https://github.com/madeindjs/crystagiri.git
+    version: 0.3.5
+  lexbor:
+    git: https://github.com/kostya/lexbor.git
+    version: 3.2.0
+  cryprompt:
+    git: https://github.com/caustickirbyz/cryprompt.git
+    version: 0.1.2+git.commit.a1a7e94903f46357467e854ef94a5b691fa01653
+  tallboy:
+    git: https://github.com/epoch/tallboy.git
+    version: 0.9.3

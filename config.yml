@@ -1,0 +1,11 @@
+# this isnt implemented yet
+webhooks:
+  Teams: 
+    - "put webhook url here"
+  Slack: 
+    - "put slack hook here"
+  Discord: 
+    - "sure put'r here"
+  GoogleChat:
+    - "Yup got this too"
+
