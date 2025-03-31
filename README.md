@@ -239,4 +239,3 @@ brew install crystal
 * [global_protect] (https://github.com/aenoshrajora/phantommist/wiki/SprayType_global_protect)
 * [ESXI_web] (https://github.com/aenoshrajora/phantommist/wiki/SprayType_ESXI_web)
 * [VMWare_Horizon] (https://github.com/aenoshrajora/phantommist/wiki/SprayType_VMWare_Horizon)
->>>>>>> 94b5796 (Phantom Mist V1.0)
