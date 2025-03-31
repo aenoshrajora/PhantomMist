@@ -27,7 +27,7 @@ A fast multithreaded password spray tool designed to simplify and automate many 
 * Lockout detection (on a per module basis )
 * Webhook support (autodetects Teams, Discord, Slack, and Google Chat URLS via domain name)
 * Multithreaded
-* For full list of changes and features added/removed. see the [ReleaseNotes](https://github.com/aenoshrajora/phantommist/blob/main/ReleaseNotes.md) (Not Released Yet)
+* For full list of changes and features added. see the [ReleaseNotes](https://github.com/aenoshrajora/phantommist/blob/main/ReleaseNotes.md) (Releases have not been released yet due to testing and analyzing)
 
 # **PMDB** 
 An nice interface for the backend database.
