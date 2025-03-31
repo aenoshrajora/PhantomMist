@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-# PhantomMist
-Comming Soon
-=======
 ![Static Linux](https://github.com/aenoshrajora/phantommist/actions/workflows/StaticLinuxBuild.yml/badge.svg) 
 ![Arch Linux](https://github.com/aenoshrajora/phantommist/actions/workflows/ArchLinuxBuild.yml/badge.svg) 
 ![Debain(based) Linux](https://github.com/aenoshrajora/phantommist/actions/workflows/DebianLinuxBuild.yml/badge.svg)
@@ -17,7 +13,7 @@ I got sick and tired of having to remember and manually spray a password every 3
 <img src="./mdassets/phantommist_art.png"> 
 
 
-### [Wiki](https://github.com/aenoshrajora/phantommist/wiki).
+### [Wiki](https://github.com/aenoshrajora/phantommist/wiki). (Not Released Yet)
 
 # **PhantomMist**
 A fast multithreaded password spray tool designed to simplify and automate many password spraying problems i faced.
@@ -31,7 +27,7 @@ A fast multithreaded password spray tool designed to simplify and automate many 
 * Lockout detection (on a per module basis )
 * Webhook support (autodetects Teams, Discord, Slack, and Google Chat URLS via domain name)
 * Multithreaded
-* For full list of changes and features added/removed. see the [ReleaseNotes](https://github.com/aenoshrajora/phantommist/blob/main/ReleaseNotes.md)
+* For full list of changes and features added/removed. see the [ReleaseNotes](https://github.com/aenoshrajora/phantommist/blob/main/ReleaseNotes.md) (Not Released Yet)
 
 # **PMDB** 
 An nice interface for the backend database.
@@ -115,7 +111,7 @@ Additional Options:
 
 ## **Use**
 
-### Download from [releases](https://github.com/aenoshrajora/PhantomMist/releases).
+### Download from [releases](https://github.com/aenoshrajora/PhantomMist/releases). (Not Released Yet)
 or 
 
 ## Compile yourself 
@@ -217,33 +213,17 @@ sudo pacman -S crystal shards
 curl -fsSL https://crystal-lang.org/install.sh | sudo bash
 ```
 
-**Windows** (Crystal not fully supported on windows *yet*) there are several options:
+**Windows** (Crystal is supported on windows) there are several options:
 * There is prerelease crystal compiler for windows available. 
 * Use wsl (this is what i use 80% of the time and it works really well)
 * use a linux vm
 
-\* **Note:** ~~Crystal doesnt have an official windows compiler release yet.~~ It does now! Not sure if i want to support windows yet but if someone wants it submit an issue and ill see if i can get it working. If a bug is found please create a bug report and i will try to address it. 
 
 **MacOS**(homebrew):
 ```
 brew update
 brew install crystal
 ```
-
-\* **Note:** I dont have a mac so i cant quite support MacOS. If a bug is found please create a bug report and i will try to fix. 
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 * [ExchangeEAS] (https://github.com/aenoshrajora/phantommist/wiki/SprayType_ExchangeEAS)
