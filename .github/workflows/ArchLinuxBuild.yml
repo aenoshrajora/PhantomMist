@@ -30,7 +30,11 @@ jobs:
         run: |
           cd lib/lexbor/ext/lexbor-c
           make build
+<<<<<<< HEAD
         continue-on-error: true
+=======
+        continue-on-error: true 
+>>>>>>> c051168b17f4aa0f5a79c0c79ee1bcb576c3f6fc
 
       - name: Verify Lexbor Build
         run: ls -lah lib/lexbor/ext/lexbor-c/build

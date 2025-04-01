@@ -27,7 +27,7 @@ A fast multithreaded password spray tool designed to simplify and automate many 
 * Lockout detection (on a per module basis )
 * Webhook support (autodetects Teams, Discord, Slack, and Google Chat URLS via domain name)
 * Multithreaded
-* For full list of changes and features added/removed. see the [ReleaseNotes](https://github.com/aenoshrajora/phantommist/blob/main/ReleaseNotes.md) (Not Released Yet)
+* For full list of changes and features added. see the [ReleaseNotes](https://github.com/aenoshrajora/phantommist/blob/main/ReleaseNotes.md) (Releases have not been released yet due to testing and analyzing)
 
 # **PMDB** 
 An nice interface for the backend database.
@@ -239,4 +239,3 @@ brew install crystal
 * [global_protect] (https://github.com/aenoshrajora/phantommist/wiki/SprayType_global_protect)
 * [ESXI_web] (https://github.com/aenoshrajora/phantommist/wiki/SprayType_ESXI_web)
 * [VMWare_Horizon] (https://github.com/aenoshrajora/phantommist/wiki/SprayType_VMWare_Horizon)
->>>>>>> 94b5796 (Phantom Mist V1.0)
