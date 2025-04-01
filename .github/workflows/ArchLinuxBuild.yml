@@ -4,9 +4,8 @@ on:
   push:
     branches: [ main ]
     paths: 
-    - 'src/**'
+      - 'src/**'
 
-    
 jobs:
   build-arch:
     runs-on: ubuntu-latest
@@ -14,12 +13,12 @@ jobs:
       image: archlinux
 
     steps:
-      - name: update docker
+      - name: Update Docker Container
         run: pacman -Syu --noconfirm
       
-      - name: install dependancies 
+      - name: Install Dependencies
         run: pacman -S base-devel gcc make cmake openssl crystal shards --noconfirm
-      
+
       - uses: actions/checkout@v2
 
       - name: Install shard dependencies
@@ -27,8 +26,21 @@ jobs:
         env:
           SHARDS_OPTS: --ignore-crystal-version
 
+      - name: Build Lexbor
+        run: |
+          cd lib/lexbor/ext/lexbor-c
+          make build
+        continue-on-error: true 
+
+      - name: Verify Lexbor Build
+        run: ls -lah lib/lexbor/ext/lexbor-c/build
+
       - name: Build phantommist
-        run: crystal build src/phantommist.cr -p --release
+        run: |
+          export LDFLAGS="-L$PWD/lib/lexbor/ext/lexbor-c/build"
+          crystal build src/phantommist.cr -p --release
 
       - name: Build pmdb
-        run: crystal build src/pmdb.cr -p --release
+        run: |
+          export LDFLAGS="-L$PWD/lib/lexbor/ext/lexbor-c/build"
+          crystal build src/pmdb.cr -p --release
