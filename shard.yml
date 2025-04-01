@@ -1,8 +1,8 @@
 name: PhantomMist
-version: 1.0.6
+version: 1.0.0
 
 authors:
-  - CausticKirbyZ (Mike Hedlund)
+  - Shadow Exploit (Aenosh Rajora)
 
 description: |
   PhantomMist is a CLI tool for password spraying. Featuring Lockout/MFA detection, Webhooks, jitter, delays, and more.  
@@ -20,3 +20,5 @@ dependencies:
     branch: master
   tallboy:
     github: epoch/tallboy
+  lexbor:
+    github: kostya/lexbor
