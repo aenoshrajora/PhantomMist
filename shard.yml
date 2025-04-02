@@ -9,6 +9,8 @@ description: |
 
 license: GPL3
 dependencies:
+  lexbor:
+    github: kostya/lexbor
   sqlite3:
     github: crystal-lang/crystal-sqlite3
   crystagiri:
@@ -20,5 +22,3 @@ dependencies:
     branch: master
   tallboy:
     github: epoch/tallboy
-  lexbor:
-    github: kostya/lexbor

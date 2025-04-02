@@ -171,7 +171,7 @@ function install_omf
 
   # Config step
   install_bootstrap
-  install_config
+  install_config 
 end
 
 
