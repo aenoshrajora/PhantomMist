@@ -36,6 +36,13 @@ jobs:
         run: shards install
         env:
           SHARDS_OPTS: --ignore-crystal-version
+          
+      - name: Install shard dependencies and build lexbor
+        run: |
+          shards install
+          cd lib/lexbor/ext/lexbor-c
+          make -j$(nproc)
+
 
       - name: Build phantommist
         run: crystal build src/phantommist.cr -p --release
